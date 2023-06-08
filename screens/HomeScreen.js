@@ -15,6 +15,12 @@ const HomeScreen = () => {
       .catch(error => alert(error.message))
   }
 
+  const toTheList = () => {
+
+    navigation.replace("ListScreen")
+
+  }
+
   return (
     <View style={styles.container}>
       <Text>Email: {auth.currentUser?.email}</Text>
@@ -23,6 +29,12 @@ const HomeScreen = () => {
         style={styles.button}
       >
         <Text style={styles.buttonText}>Sign out</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={toTheList}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>To The List</Text>
       </TouchableOpacity>
     </View>
   )
