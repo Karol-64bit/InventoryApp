@@ -16,14 +16,17 @@ const HomeScreen = () => {
   }
 
   const toTheList = () => {
-
     navigation.replace("ListScreen")
-
   }
+
+  const toTheAddItem = () => {
+    navigation.replace("AddItem")
+  }
+
 
   return (
     <View style={styles.container}>
-      <Text>Email: {auth.currentUser?.email}</Text>
+      <Text>1 Email: {auth.currentUser?.email}</Text>
       <TouchableOpacity
         onPress={handleSignOut}
         style={styles.button}
@@ -34,7 +37,13 @@ const HomeScreen = () => {
         onPress={toTheList}
         style={styles.button}
       >
-        <Text style={styles.buttonText}>To The List</Text>
+        <Text style={styles.buttonText}>List of all items</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={toTheAddItem}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>Add new item</Text>
       </TouchableOpacity>
     </View>
   )
@@ -61,4 +70,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 16,
   },
+
 })

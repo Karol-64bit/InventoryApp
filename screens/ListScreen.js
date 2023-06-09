@@ -12,7 +12,7 @@ const ListScreen = () => {
 
     return (
         <View>
-            <Text>test</Text>
+            <Text>test2</Text>
             <TouchableOpacity
                 onPress={toTheHomeScreen}
                 style={styles.button}

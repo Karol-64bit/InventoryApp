@@ -5,6 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import ListScreen from './screens/ListScreen';
+import AddItem from './screens/AddItem';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +17,7 @@ export default function App() {
         <Stack.Screen options={{headerShown:false}}name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="ListScreen" component={ListScreen} />
+        <Stack.Screen name="AddItem" component={AddItem} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -28,3 +31,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
