@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
-import { collection, addDoc } from "firebase/firestore"
-import {app, db} from "../firebase";
+import { collection, addDoc, doc, setDoc } from "firebase/firestore"
+import {app, db, auth} from "../firebase";
 
 const AddItem = () => {
 
@@ -13,7 +13,12 @@ const AddItem = () => {
 
     const handleAddNewItem = async () => {
         try {
-            const docRef = await addDoc(collection(db, "items"), {
+            const user = auth.currentUser;
+            const userId = user.uid;
+
+            await setDoc(doc(db, "users", userId), {});
+
+            const docRef = await addDoc(collection(db, "users", userId, "items"), {
               itemName: itemName,
               itemDescription: itemDescription,
             });
