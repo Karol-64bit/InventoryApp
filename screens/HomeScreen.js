@@ -26,7 +26,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text>1 Email: {auth.currentUser?.email}</Text>
+      <Text>Email: {auth.currentUser?.email}</Text>
       <TouchableOpacity
         onPress={handleSignOut}
         style={styles.button}
