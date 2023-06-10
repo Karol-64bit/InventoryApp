@@ -6,7 +6,7 @@ import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import ListScreen from './screens/ListScreen';
 import AddItem from './screens/AddItem';
-
+import EditItem from './screens/EditItem';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +18,7 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="ListScreen" component={ListScreen} />
         <Stack.Screen name="AddItem" component={AddItem} />
+        <Stack.Screen name="EditItem" component={EditItem} />
       </Stack.Navigator>
     </NavigationContainer>
   );

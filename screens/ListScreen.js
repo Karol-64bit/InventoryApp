@@ -3,14 +3,25 @@ import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react';
 import { collection, query, getDocs, doc, updateDoc  } from 'firebase/firestore';
 import { auth, db } from '../firebase';
-import {FlashList} from '@shopify/flash-list';
 
 
 const ListScreen = () => {
+
+  const user = auth.currentUser;
+  const userId = user.uid;
   const navigation = useNavigation();
   const toTheHomeScreen = () => {
     navigation.replace("Home")
   }
+  
+  const toTheEditScreen = (userId,itemId,itemName,itemAmount) => {
+      navigation.navigate("EditItem", { 
+        userId: userId, 
+        itemId: itemId, 
+        itemName: itemName, 
+        itemAmount: itemAmount
+      });
+  };
 
   const [items, setItems] = useState([]);
 
@@ -18,16 +29,11 @@ const ListScreen = () => {
     const user = auth.currentUser;
     const userId = user.uid;
 
-
-
-    // Tworzenie zapytania do pobrania notatek użytkownika
     const notesQuery = query(collection(db, 'users', userId, 'items'));
 
     try {
-      // Wykonanie zapytania i pobranie dokumentów
       const querySnapshot = await getDocs(notesQuery);
-      
-      // Mapowanie danych notatek i zapisanie ich w stanie
+            
       const fetchedNotes = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
@@ -41,7 +47,6 @@ const ListScreen = () => {
   };
 
   useEffect(() => {
-    
 
     fetchNotes();
 
@@ -50,18 +55,42 @@ const ListScreen = () => {
   const handleEditItem = async (itemId) => {
     const user = auth.currentUser;
     const userId = user.uid;
-    // Znajdowanie dokumentu o podanym ID
+
     const itemRef = doc(db, 'users', userId, 'items', itemId);
 
     try {
-      // Aktualizacja dokumentu
-      await updateDoc(itemRef, { itemName: 'Test' });
+
+      await updateDoc(itemRef, { itemName: 'Latarka' });
       console.log('Item updated successfully!');
       fetchNotes();
     } catch (error) {
       console.error('Error updating item:', error);
     }
   };
+
+    const increaseAmount = async (itemId,itemAmount) => {
+      const itemRef = doc(db, "users", userId, "items", itemId);
+      const newAmount = itemAmount + 1;
+      try {
+        await updateDoc(itemRef, { itemAmount: newAmount });
+        console.log("Item updated successfully!");
+        fetchNotes();
+      } catch (error) {
+        console.error("Error updating item:", error);
+      }
+    };
+
+    const decreaseAmount = async (itemId, itemAmount) => {
+      const itemRef = doc(db, "users", userId, "items", itemId);
+      const newAmount = itemAmount - 1;
+      try {
+        await updateDoc(itemRef, { itemAmount: newAmount });
+        console.log("Item updated successfully!");
+        fetchNotes();
+      } catch (error) {
+        console.error("Error updating item:", error);
+      }
+    };
 
   return (
     <View style={styles.container}>
@@ -72,18 +101,33 @@ const ListScreen = () => {
       <View style={styles.main}>
       {console.log(items)}
         {items.map((item) =>{
-          return(
-          <View key={item.id} style={styles.dateRow}>
-            <Text>{item.id}</Text>
-            <Text>{item.itemName}</Text>
-            <TouchableOpacity
-              onPress={()=>handleEditItem(item.id)}
-              style={styles.smallButton}
-            >
-              <Text style={styles.smallButtonText}>Edit</Text>
-            </TouchableOpacity>
-          </View>
-        )
+          return (
+            <View key={item.id} style={styles.dateRow}>
+              <Text>{item.itemName}</Text>
+              <Text>{item.itemAmount}</Text>
+
+              <TouchableOpacity
+                onPress={() => decreaseAmount(item.id, item.itemAmount)}
+                style={styles.smallButton}
+              >
+                <Text style={styles.smallButtonText}>-</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => increaseAmount(item.id, item.itemAmount)}
+                style={styles.smallButton}
+              >
+                <Text style={styles.smallButtonText}>+</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => toTheEditScreen(userId,item.id,item.itemName,item.itemAmount)}
+                style={styles.smallButton}
+              >
+                <Text style={styles.smallButtonText}>Edit</Text>
+              </TouchableOpacity>
+            </View>
+          );
         })}
       </View>
 
