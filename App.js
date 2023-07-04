@@ -7,6 +7,11 @@ import HomeScreen from './screens/HomeScreen';
 import ListScreen from './screens/ListScreen';
 import AddItem from './screens/AddItem';
 import EditItem from './screens/EditItem';
+import GenerateRaport from './screens/GenerateRaport';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
+Icon.loadFont();
+
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +24,7 @@ export default function App() {
         <Stack.Screen name="ListScreen" component={ListScreen} />
         <Stack.Screen name="AddItem" component={AddItem} />
         <Stack.Screen name="EditItem" component={EditItem} />
+        <Stack.Screen name="GenerateRaport" component={GenerateRaport} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -23,28 +23,43 @@ const HomeScreen = () => {
     navigation.replace("AddItem")
   }
 
+  const toGenerateRaport = () => {
+    navigation.replace("GenerateRaport")
+  }
+
 
   return (
     <View style={styles.container}>
-      <Text>Email: {auth.currentUser?.email}</Text>
-      <TouchableOpacity
-        onPress={handleSignOut}
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>Sign out</Text>
-      </TouchableOpacity>
+      <Text>Account email: {auth.currentUser?.email}</Text>
+
       <TouchableOpacity
         onPress={toTheList}
         style={styles.button}
       >
-        <Text style={styles.buttonText}>List of all items</Text>
+        <Text style={styles.buttonText}>Item list</Text>
       </TouchableOpacity>
+
       <TouchableOpacity
         onPress={toTheAddItem}
         style={styles.button}
       >
         <Text style={styles.buttonText}>Add new item</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={toGenerateRaport}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>Create raport</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={handleSignOut}
+        style={styles.buttonSignOut}
+      >
+        <Text style={styles.buttonText}>Sign out</Text>
+      </TouchableOpacity>
+
     </View>
   )
 }
@@ -69,6 +84,14 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: '700',
     fontSize: 16,
+  },
+  buttonSignOut: {
+    backgroundColor: '#9F0028',
+    width: '60%',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 40,
   },
 
 })

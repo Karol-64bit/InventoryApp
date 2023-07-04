@@ -5,6 +5,11 @@ import { auth } from '../firebase'
 import {  createUserWithEmailAndPassword, signInWithEmailAndPassword  } from 'firebase/auth';
 
 const LoginScreen = () => {
+
+  //  Przykłądowe dane logowania:
+  //  Karol@wsiz.pl
+  //  test123
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
